@@ -1,0 +1,86 @@
+export * from './auditLogApi';
+import { AuditLogApi } from './auditLogApi';
+export * from './authApi';
+import { AuthApi } from './authApi';
+export * from './billingApi';
+import { BillingApi } from './billingApi';
+export * from './cellLocationApi';
+import { CellLocationApi } from './cellLocationApi';
+export * from './credentialApi';
+import { CredentialApi } from './credentialApi';
+export * from './dataEntryApi';
+import { DataEntryApi } from './dataEntryApi';
+export * from './deviceApi';
+import { DeviceApi } from './deviceApi';
+export * from './deviceObjectModelApi';
+import { DeviceObjectModelApi } from './deviceObjectModelApi';
+export * from './diagnosticApi';
+import { DiagnosticApi } from './diagnosticApi';
+export * from './emailApi';
+import { EmailApi } from './emailApi';
+export * from './eventHandlerApi';
+import { EventHandlerApi } from './eventHandlerApi';
+export * from './fileEntryApi';
+import { FileEntryApi } from './fileEntryApi';
+export * from './filesApi';
+import { FilesApi } from './filesApi';
+export * from './gadgetApi';
+import { GadgetApi } from './gadgetApi';
+export * from './groupApi';
+import { GroupApi } from './groupApi';
+export * from './lagoonApi';
+import { LagoonApi } from './lagoonApi';
+export * from './logApi';
+import { LogApi } from './logApi';
+export * from './loraDeviceApi';
+import { LoraDeviceApi } from './loraDeviceApi';
+export * from './loraGatewayApi';
+import { LoraGatewayApi } from './loraGatewayApi';
+export * from './loraNetworkSetApi';
+import { LoraNetworkSetApi } from './loraNetworkSetApi';
+export * from './operatorApi';
+import { OperatorApi } from './operatorApi';
+export * from './orderApi';
+import { OrderApi } from './orderApi';
+export * from './paymentApi';
+import { PaymentApi } from './paymentApi';
+export * from './portMappingApi';
+import { PortMappingApi } from './portMappingApi';
+export * from './queryApi';
+import { QueryApi } from './queryApi';
+export * from './resourceSummaryApi';
+import { ResourceSummaryApi } from './resourceSummaryApi';
+export * from './roleApi';
+import { RoleApi } from './roleApi';
+export * from './shippingAddressApi';
+import { ShippingAddressApi } from './shippingAddressApi';
+export * from './sigfoxDeviceApi';
+import { SigfoxDeviceApi } from './sigfoxDeviceApi';
+export * from './simApi';
+import { SimApi } from './simApi';
+export * from './soraCamApi';
+import { SoraCamApi } from './soraCamApi';
+export * from './soraletApi';
+import { SoraletApi } from './soraletApi';
+export * from './statsApi';
+import { StatsApi } from './statsApi';
+export * from './subscriberApi';
+import { SubscriberApi } from './subscriberApi';
+export * from './systemNotificationApi';
+import { SystemNotificationApi } from './systemNotificationApi';
+export * from './userApi';
+import { UserApi } from './userApi';
+export * from './virtualPrivateGatewayApi';
+import { VirtualPrivateGatewayApi } from './virtualPrivateGatewayApi';
+import * as http from 'http';
+
+export class HttpError extends Error {
+    constructor (public response: http.IncomingMessage, public body: any, public statusCode?: number) {
+        super('HTTP request failed');
+        this.name = 'HttpError';
+    }
+}
+
+export { RequestFile } from '../model/models';
+
+export const APIS = [AuditLogApi, AuthApi, BillingApi, CellLocationApi, CredentialApi, DataEntryApi, DeviceApi, DeviceObjectModelApi, DiagnosticApi, EmailApi, EventHandlerApi, FileEntryApi, FilesApi, GadgetApi, GroupApi, LagoonApi, LogApi, LoraDeviceApi, LoraGatewayApi, LoraNetworkSetApi, OperatorApi, OrderApi, PaymentApi, PortMappingApi, QueryApi, ResourceSummaryApi, RoleApi, ShippingAddressApi, SigfoxDeviceApi, SimApi, SoraCamApi, SoraletApi, StatsApi, SubscriberApi, SystemNotificationApi, UserApi, VirtualPrivateGatewayApi];
