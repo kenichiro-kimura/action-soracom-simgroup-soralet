@@ -33798,13 +33798,24 @@ function main() {
         const authRequest = new soracom.Model.AuthRequest();
         authRequest.authKey = core.getInput("soracom_auth_key", { required: true });
         authRequest.authKeyId = core.getInput("soracom_auth_key_id", { required: true });
-        const soraletId = core.getInput("soracom_soralet_id", { required: true });
-        const soraletFilename = core.getInput("soracom_soralet_filename", { required: true });
+        const soraletCodeSrn = core.getInput("soracom_soralet_code_srn", { required: true });
+        const soraletContentType = core.getInput("soracom_soralet_content_type", { required: false }) ? core.getInput("soracom_soralet_content_type", { required: false }) : "application/json";
+        const soraletDirectionString = core.getInput("soracom_soralet_direction", { required: true });
+        const soraletDirection = soraletDirectionString.split(",");
+        const soraletEnabled = core.getInput("soracom_soralet_enabled", { required: false }) === "true";
+        const soraletUseLocation = core.getInput("soracom_soralet_use_location", { required: false }) === "true";
+        const soraletUseMetadata = core.getInput("soracom_soralet_use_metadata", { required: false }) === "true";
+        const groupId = core.getInput("soracom_group_id", { required: true });
         const coverage = core.getInput("soracom_coverage", { required: false }) ? core.getInput("soracom_coverage", { required: false }) : "jp";
         const endpoint = coverage === "g" ? "https://g.api.soracom.io/v1" : "https://api.soracom.io/v1";
-        const deleteOldSoralet = core.getInput("soracom_delete_old_soralet", { required: false }) === "true";
         authApi.basePath = endpoint;
         groupApi.basePath = endpoint;
+        soraletDirection.forEach((direction) => {
+            if (direction !== "uplink" && direction !== "downlink") {
+                core.setFailed(`invalid direction: ${direction}`);
+                throw new Error(`invalid direction: ${direction}`);
+            }
+        });
         try {
             const authResult = yield authApi.auth(authRequest);
             const apiKey = authResult.body.apiKey ? authResult.body.apiKey : "";
@@ -33813,6 +33824,34 @@ function main() {
             authApi.setApiKey(soracom.API.AuthApiApiKeys.api_token, apiToken);
             groupApi.setApiKey(soracom.API.GroupApiApiKeys.api_key, apiKey);
             groupApi.setApiKey(soracom.API.GroupApiApiKeys.api_token, apiToken);
+            const codeSrnRequest = new soracom.Model.GroupConfigurationUpdateRequest();
+            codeSrnRequest.key = "codeSrn";
+            codeSrnRequest.value = soraletCodeSrn;
+            const contentTypeRequest = new soracom.Model.GroupConfigurationUpdateRequest();
+            contentTypeRequest.key = "contentType";
+            contentTypeRequest.value = soraletContentType;
+            const directionRequest = new soracom.Model.GroupConfigurationUpdateRequest();
+            directionRequest.key = "direction";
+            directionRequest.value = JSON.stringify(soraletDirection);
+            const enabledRequest = new soracom.Model.GroupConfigurationUpdateRequest();
+            enabledRequest.key = "enabled";
+            enabledRequest.value = soraletEnabled ? "true" : "false";
+            const useLocationRequest = new soracom.Model.GroupConfigurationUpdateRequest();
+            useLocationRequest.key = "useLocation";
+            useLocationRequest.value = soraletUseLocation ? "true" : "false";
+            const useMetadataRequest = new soracom.Model.GroupConfigurationUpdateRequest();
+            useMetadataRequest.key = "useMetadata";
+            useMetadataRequest.value = soraletUseMetadata ? "true" : "false";
+            const groupConfigurationUpdateRequests = ([
+                codeSrnRequest,
+                contentTypeRequest,
+                directionRequest,
+                enabledRequest,
+                useLocationRequest,
+                useMetadataRequest,
+            ]);
+            const putConfigurationResult = yield groupApi.putConfigurationParameters(groupId, "SoracomOrbit", groupConfigurationUpdateRequests);
+            console.log(putConfigurationResult.body);
         }
         catch (error) {
             try {

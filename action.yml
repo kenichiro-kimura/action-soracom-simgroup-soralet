@@ -13,19 +13,30 @@ inputs:
   soracom_coverage:
     description: 'SORACOM COVERAGE(Default:jp)'
     required: false
-  soracom_soralet_id:
-    description: 'SORACOM Soralet ID'
+  soracom_soralet_code_srn:
+    description: 'SORACOM Soralet Code SRN'
     required: true
-  soracom_soralet_filename:
-    description: 'SORACOM Soralet filename'
-    required: true
-  soracom_delete_old_soralet:
-    description: 'Delete old version of soralet in case of "too many soralet versions" error during upload new soralet(Defualt:false)'
+  soracom_soralet_content_type:
+    description: 'SORACOM Soralet contentType(Default: application/json)'
     required: false
+  soracom_soralet_direction:
+    description: 'SORACOM Soralet direction("uplink" or "downlink" or "uplink,downlink")'
+    required: true
+  soracom_soralet_enabled:
+    description: 'SORACOM Soralet enabled(Default: false)'
+    required: false
+  soracom_soralet_use_location:
+    description: 'SORACOM Soralet Use Location(Default: false)'
+    required: false
+  soracom_soralet_use_metadata:
+    description: 'SORACOM Soralet Use Metadata(Default: false)'
+  soracom_group_id:
+    description: 'SORACOM SIM Group ID'
+    required: true
 
 outputs:
   result:
-    description: 'Result of deployment'
+    description: 'Result of update group configuration'
 
 runs:
   using: 'node16'
