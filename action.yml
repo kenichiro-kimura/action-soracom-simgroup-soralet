@@ -1,5 +1,5 @@
-name: "Upload Soralet"
-description: "Upload a soralet to SORACOM platform(SORACOM Orbit)"
+name: "Update SORACOM Orbit configuration"
+description: "Update SORACOM Orbit configuration"
 branding:
   icon: upload-cloud
   color: blue
