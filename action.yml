@@ -1,8 +1,8 @@
 name: "Update SORACOM Orbit configuration"
 description: "Update SORACOM Orbit configuration"
 branding:
-  icon: upload-cloud
-  color: blue
+  icon: settings
+  color: orange
 inputs:
   soracom_auth_key:
     description: 'SORACOM AUTH KEY'
