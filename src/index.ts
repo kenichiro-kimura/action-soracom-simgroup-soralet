@@ -49,7 +49,7 @@ async function main() {
 
         const directionRequest = new soracom.Model.GroupConfigurationUpdateRequest();
         directionRequest.key = "direction";
-        directionRequest.value = JSON.stringify(soraletDirection);
+        directionRequest.value = soraletDirection;
 
         const enabledRequest = new soracom.Model.GroupConfigurationUpdateRequest();
         enabledRequest.key = "enabled";

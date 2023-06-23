@@ -14,7 +14,7 @@ import { RequestFile } from './models';
 
 export class GroupConfigurationUpdateRequest {
     'key': string;
-    'value': string;
+    'value': any;
 
     static discriminator: string | undefined = undefined;
 
@@ -27,7 +27,7 @@ export class GroupConfigurationUpdateRequest {
         {
             "name": "value",
             "baseName": "value",
-            "type": "string"
+            "type": "any"
         }    ];
 
     static getAttributeTypeMap() {
