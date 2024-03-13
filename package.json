@@ -1,6 +1,6 @@
 {
   "name": "action-sracom-simgroup-soralet",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "github action which update soracom simgroup settings of soralet",
   "main": "dist/index.js",
   "scripts": {
